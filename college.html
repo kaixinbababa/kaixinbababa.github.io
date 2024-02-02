@@ -1,0 +1,17 @@
+---
+layout: default
+title: college
+---
+<div class="row">
+    <div class="col-lg-1"></div>
+    <div class="col-lg-10">
+        <ul class="list-group">
+            {% for post in site.categories.college %}
+                    <li class="list-group-item">
+                        <h5><a href="{{ post.url }}">{{ post.title }} - {{ post.date | date: "%b %d, %y"}}</a></h5>
+                    </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="col-lg-1"></div>
+</div>

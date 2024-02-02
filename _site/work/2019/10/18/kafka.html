@@ -1,0 +1,220 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Kafka</title>
+    <!--used to avoid fake favicon.ico requests-->
+    <link rel="icon" href="data:;base64,=">
+    <link rel="stylesheet" href="/assets/css/styles.css">
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav" style="font-size: large">
+    
+    <a href="/" class="nav-link " >
+      World Drifter
+    </a>
+    
+    <a href="/staff.html" class="nav-link " >
+      Author
+    </a>
+    
+    <a href="/code.html" class="nav-link " >
+      Left
+    </a>
+    
+    <a href="/blog.html" class="nav-link " >
+      Right
+    </a>
+    
+    <a href="/college.html" class="nav-link " >
+      My College
+    </a>
+    
+    </div>
+  </div>
+</nav>
+
+    <div class="row g-5">
+    <div class="col-md-2">
+    </div>
+    <div class="col-md-8">
+        <article class="blog-post">
+            <h2 class="blog-post-title mb-1">Kafka</h2>
+            <p class="blog-post-meta">18 Oct 2019 by <a href="#">Yan</a></p>
+            <h4 id="kafka-concepts---topic-and-partition">Kafka concepts - Topic and Partition</h4>
+<ul>
+  <li>Offset only has meaning for a specific partition</li>
+  <li>order is guaranteed within a partition, not accross partitions</li>
+  <li>Data is kept only for a limited time(usually two weeks)</li>
+  <li>Once data is written to a partition, it won’t change(immutatable)</li>
+  <li>Data is assigned to a random partition unless a key is provided</li>
+  <li>You can have as many partitions per topic as you want</li>
+</ul>
+
+<h4 id="brokers-and-replicas">Brokers and replicas</h4>
+<ul>
+  <li>server is called broker</li>
+  <li>each broker is identified with an ID and contains certain topic partitions</li>
+  <li>After connecting to a bootstrap broker(any broker in the cluster), will be connected to the entire cluster.</li>
+  <li>Any time only 1 broker can be a leader for a given partition
+    <ul>
+      <li>only that leader could receive and serve data for a partition</li>
+      <li>the other brokers for that partition just synchronize the data</li>
+      <li>each partition has one leader and multiple ISR(in-sync replica)</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="producers">Producers</h4>
+<ul>
+  <li>Producers only have to specify the topic name and one broker to connect to, Kafka will automatically take care of routing the data to  the right brokers.</li>
+  <li>Producers could choose to receive acknowledgement of data writes:
+    <ul>
+      <li>Acks = 0 : Producers won’t wait for acknowledgement (high performance, possible data loss)</li>
+      <li>Acks = 1 : Producers will wait for leader acknowledgement (moderate performance, limited data loss)</li>
+      <li>Acks = all : Producers wait for leader and all replicas acknowledgement (no data loss)</li>
+    </ul>
+  </li>
+  <li>Message keys
+    <ul>
+      <li>if a key is sent with the message, then the producer has the guarantee that all messages for that key will always to to the same partition.</li>
+      <li>enable the ordering of topic of a specipic key.</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="consumers">Consumers</h4>
+<ul>
+  <li>They only have to specify the topic name and one broker to connect to, and Kafka will automatically take care of pulling the data from the right brokers</li>
+  <li>Data is read in order <strong>for each partitions</strong></li>
+  <li>Consumer will consume data from different partitions in parallel.
+    <h4 id="consumer-groups">Consumer Groups</h4>
+  </li>
+  <li>Consumers read data in consumer groups</li>
+  <li>Each consumer within a group reads from exclusive partitions</li>
+  <li>Can not have more consumers than partitions (otherwise some will be inactive)
+    <h4 id="consumer-offsets">Consumer Offsets</h4>
+  </li>
+  <li>Consumer commits the offset it is reading, so it is possible to do the failover.</li>
+</ul>
+
+<h4 id="zookeeper">Zookeeper</h4>
+<ul>
+  <li>Zookeeper manages brokers</li>
+  <li>Zookeeper helps in performing leader election for partitions</li>
+  <li>Zookeeper sends notifications to Kafka in case of changes (e.g. new topic, broker dies, broker comes up, delete topics, etc…)</li>
+  <li>Zookeeper usually operates in an odd quorum.</li>
+  <li>Zookeeper has one leader and the others are followers</li>
+</ul>
+
+<p>With a repliction factor of N, producers and consumers can tolerate up to N - 1 brokers being down.</p>
+
+<h4 id="delivery-sementics-for-consumers">Delivery sementics for consumers</h4>
+<ol>
+  <li>Consumers choose when to commit offsets</li>
+  <li>At most once : offsets are committed as soon as the message is received. If the processing goes wrong, the message will be lost(it won’t be read again)</li>
+  <li>At least once: offsets are committed after the message is processed. If the processing goes wrong, the message will be read again. This can result in duplicate processing of messages. Make sure your processing is idempotent (i.e. processing the message again won’t impact your systems, such upsert)</li>
+  <li>Exactly once : Very difficult to achieve / needs strong engineering.</li>
+</ol>
+
+<h4 id="kafka-streaming">Kafka Streaming</h4>
+<ul>
+  <li>Old c++ ticker streaming service is a master-slave archetecture, all the slaves are actually backups of the master</li>
+  <li>Each Kafka partition is taken care of by only one Kafka Streaming process</li>
+  <li>Batch processing and streaming
+    <ul>
+      <li>In Kafka, replay of the topic could be deemed as patch processing (given a offset window as data boundary )</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="kafka-streams">Kafka Streams</h3>
+<ul>
+  <li>DSL and PAPI</li>
+  <li>Kyro for state serilizaiton/deserialization</li>
+  <li>stream/table duality</li>
+</ul>
+
+<hr />
+
+<ul>
+  <li>Event time</li>
+  <li>Ingestion time</li>
+  <li>Processing time</li>
+  <li>kstream app reset. You can reset an application and force it to reprocess its data from scratch by using the application reset tool. This can be useful for development and testing, or when fixing bugs.</li>
+  <li>One of the most powerful features of the Processor API, which can’t be done using the DSL, is that it lets you schedule arbitrary operations using a punctuator, a function you define that gets run at some regular interval.</li>
+  <li>events have a dedicated timestamp field that can be set by the producer according to the time in its environment when it sends the record, event-time processing, or by the brokers when they receive the record, log-append time processing, (which is actually known as ingestion-time processing in Kafka Streams). Typically, the producer will set the timestamp. Finally, timestamps are read from records using the TimestampExtractor interface.</li>
+</ul>
+
+<hr />
+
+<p><strong>Kstream</strong> pay attention to the partition level function or kstream level function.</p>
+
+<p>Just like a topic in Kafka, a stream in the Kafka Streams API consists of one or more stream partitions.</p>
+
+<p><img src="/assets/images/kstream_position.png" alt="kstream hierachy" /></p>
+
+<p>An application instance is any running instance or “copy” of your application. Application instances are the primary means to elasticly scale and parallelize your application, and they also contribute to making it fault-tolerant. For example, you may need the power of ten machines to handle the incoming data load of your application; here, you could opt to run ten instances of your application, one on each machine, and these instances would automatically collaborate on the data processing – even as new instances/machines are added or existing ones removed during live operation.
+<img src="/assets/images/kstream_instances.png" alt="kstream_instance" /><br /></p>
+
+<p>Kafka Streams simplifies application development by building on the Apache Kafka® producer and consumer APIs, and leveraging the native capabilities of Kafka to offer data parallelism, distributed coordination, fault tolerance, and operational simplicity.</p>
+
+<p>Here is the anatomy of an application that uses the Kafka Streams API. It provides a logical view of a Kafka Streams application that contains multiple stream threads, that each contain multiple stream tasks.</p>
+
+<p><img src="/assets/images/kstream_architecture.png" /></p>
+
+<p>The messaging layer of Kafka partitions data for storing and transporting it. Kafka Streams partitions data for processing it. In both cases, this partitioning is what enables data locality, elasticity, scalability, high performance, and fault tolerance.</p>
+
+<p>Kafka Streams uses the concepts of <strong>stream partitions</strong> and <strong>stream tasks</strong> as logical units of its parallelism model. There are close links between Kafka Streams and Kafka in the context of parallelism:</p>
+
+<ul>
+  <li>Each stream partition is a totally ordered sequence of data records and maps to a Kafka topic partition.</li>
+  <li>A data record in the stream maps to a Kafka message from that topic.</li>
+  <li>The keys of data records determine the partitioning of data in both Kafka and Kafka Streams, i.e., how data is routed to specific partitions within topics.</li>
+</ul>
+
+<p>Slightly simplified, the maximum parallelism at which your application may run is bounded by the maximum number of stream tasks, which itself is determined by maximum number of partitions of the input topic(s) the application is reading from. For example, if your input topic has 5 partitions, then you can run up to 5 applications instances. These instances will collaboratively process the topic’s data. If you run a larger number of app instances than partitions of the input topic, the “excess” app instances will launch but remain idle; however, if one of the busy instances goes down, one of the idle instances will resume the former’s work. We provide a more detailed explanation and example in the FAQ.</p>
+
+<p>It is important to understand that Kafka Streams is not a resource manager, but a library that “runs” anywhere its stream processing application runs. Multiple instances of the application are executed either on the same machine, or spread across multiple machines and tasks can be distributed automatically by the library to those running application instances. The assignment of partitions to tasks never changes; if an application instance fails, all its assigned tasks will be restarted on other instances and continue to consume from the same stream partitions.</p>
+
+<h3 id="threading-model">Threading Model</h3>
+
+<p>Kafka Streams allows the user to configure the number of threads that the library can use to parallelize processing within an application instance. Each thread can execute one or more stream tasks with their processor topologies independently.</p>
+
+<p> 
+  <img src="/assets/images/kstream_thread.png" />
+</p>
+
+<p>Imagine a Kafka Streams application that consumes from two topics, A and B, with each having 3 partitions. If we now start the application on a single machine with the number of threads configured to 2, we end up with two stream threads instance1-thread1 and instance1-thread2. Kafka Streams will break this topology by default into three tasks because the maximum number of partitions across the input topics A and B is max(3, 3) == 3, and then distribute the six input topic partitions evenly across these three tasks; in this case, each task will process records from one partition of each input topic, for a total of two input partitions per task. Finally, these three tasks will be spread evenly – to the extent this is possible – across the two available threads, which in this example means that the first thread will run 2 tasks (consuming from 4 partitions) and the second thread will run 1 task (consuming from 2 partitions).</p>
+
+<p><img src="/assets/images/kstream_rebalance0.png" /></p>
+
+<p>Now imagine we want to scale out this application later on, perhaps because the data volume has increased significantly. We decide to start running the same application but with only a single thread on another, different machine. A new thread instance2-thread1 will be created, and input partitions will be re-assigned similar to:</p>
+
+<p><img src="/assets/images/kstream_rebalance.png" /></p>
+
+<h4 id="state">STATE</h4>
+<p>Every stream task in a Kafka Streams application may embed one or more local state stores that can be accessed via APIs to store and query data required for processing. These state stores can either be a RocksDB database, an in-memory hash map, or another convenient data structure. Kafka Streams offers fault-tolerance and automatic recovery for local state stores.</p>
+
+<p><img src="/assets/images/kstream_localSS.png" /></p>
+<p>A Kafka Streams application is typically running on many application instances. Because Kafka Streams partitions the data for processing it, an application’s entire state is spread across the local state stores of the application’s running instances. The Kafka Streams API lets you work with an application’s state stores both locally (e.g., on the level of an instance of the application) as well as in its entirety (on the level of the “logical” application), for example through stateful operations such as count() or through Interactive Queries.</p>
+
+<hr />
+<h3 id="kafka-stream-poison-pills">Kafka Stream Poison Pills</h3>
+<ul>
+  <li>https://issues.apache.org/jira/browse/KAFKA-6502</li>
+  <li>https://www.confluent.io/blog/spring-kafka-can-your-kafka-consumers-handle-a-poison-pill/</li>
+</ul>
+
+
+        </article>
+    </div>
+</div>
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+  </body>
+</html>

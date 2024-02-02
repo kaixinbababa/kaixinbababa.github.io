@@ -1,0 +1,14 @@
+---
+layout: default
+title: Staff
+---
+<div class="panel panel-default">
+  <div class="panel-heading">Author</div>
+  {% for author in site.authors %}
+  <div class="panel-body">
+    <p>{{ author.name }}</p>
+    <p>{{ author.position }}</p>
+    <p>{{ author.content }}</p>
+  </div>
+  {% endfor %}
+</div>

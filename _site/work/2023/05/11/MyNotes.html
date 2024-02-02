@@ -1,0 +1,172 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>My Notes</title>
+    <!--used to avoid fake favicon.ico requests-->
+    <link rel="icon" href="data:;base64,=">
+    <link rel="stylesheet" href="/assets/css/styles.css">
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav" style="font-size: large">
+    
+    <a href="/" class="nav-link " >
+      World Drifter
+    </a>
+    
+    <a href="/staff.html" class="nav-link " >
+      Author
+    </a>
+    
+    <a href="/code.html" class="nav-link " >
+      Left
+    </a>
+    
+    <a href="/blog.html" class="nav-link " >
+      Right
+    </a>
+    
+    <a href="/college.html" class="nav-link " >
+      My College
+    </a>
+    
+    </div>
+  </div>
+</nav>
+
+    <div class="row g-5">
+    <div class="col-md-2">
+    </div>
+    <div class="col-md-8">
+        <article class="blog-post">
+            <h2 class="blog-post-title mb-1">My Notes</h2>
+            <p class="blog-post-meta">11 May 2023 by <a href="#">Yan Wang</a></p>
+            <h3 id="object-storage-vs-file-storage">Object Storage vs File Storage</h3>
+<ul>
+  <li>flat structure vs hierarchy structure</li>
+  <li>object storage used for large amount of data, archived data, cheap to store.</li>
+  <li>distributed storage, replicated data redundancy. High availability.</li>
+</ul>
+
+<h3 id="cap-theorem">CAP theorem</h3>
+<ul>
+  <li>Avaiblability
+    <ul>
+      <li>Every request receives a (non-error) response, without the guarantee that it contains the most recent write.</li>
+    </ul>
+  </li>
+  <li>Consistency
+    <ul>
+      <li>Every read receives the most recent write or an error.</li>
+    </ul>
+  </li>
+  <li>partition tolerance
+    <ul>
+      <li>The system continues to operate despite an arbitrary number of messages being dropped (or delayed) by the network between nodes.</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="spark">Spark</h3>
+<ul>
+  <li>Spark cache is lazy.
+    <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">DF1</span><span class="o">.</span><span class="py">cache</span><span class="o">()</span>
+<span class="nv">DF1</span><span class="o">.</span><span class="py">count</span><span class="o">()</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>We used the count above to eagerly cache the data (basically perform an action to force Spark to store it in memory), because caching itself is lazy—the data is cached only on the first time you run an action on the DataFrame.</p>
+  </li>
+  <li>each executor will launch a jvm, so it’s good we do not allocate more than one executor per machine.</li>
+  <li>standalone cluster does not honor <code class="language-plaintext highlighter-rouge">executor.num</code> configuration, it used <code class="language-plaintext highlighter-rouge">max.cores/executor.cores</code> to figure out corresponding executor number.</li>
+  <li><strong>ContextCleaner</strong> — Spark Application Garbage Collector
+ContextCleaner is a Spark service that is responsible for application-wide cleanup of shuffles, RDDs, broadcasts, accumulators and checkpointed RDDs that is aimed at reducing the memory requirements of long-running data-heavy Spark applications.
+    <ul>
+      <li>ContextCleaner runs on the driver. It is created and immediately started when SparkContext starts (and spark.cleaner.referenceTracking Spark property is enabled, which it is by default). It is stopped when SparkContext is stopped.</li>
+    </ul>
+  </li>
+  <li>Any operation applied on a DStream translates to operations on the underlying RDDs. For example, in the earlier example of converting a stream of lines to words, the flatMap operation is applied on each RDD in the lines DStream to generate the RDDs of the words DStream. This is shown in the following figure.
+<img src="/assets/images/streaming-dstream-ops.png" alt="diagram" /></li>
+  <li>
+    <p>Input DStreams are DStreams representing the stream of input data received from streaming sources. In the quick example, lines was an input DStream as it represented the stream of data received from the netcat server. Every input DStream (except file stream, discussed later in this section) is associated with a Receiver (Scala doc, Java doc) object which receives the data from a source and stores it in Spark’s memory for processing.</p>
+
+    <ul>
+      <li>Note that, if you want to receive multiple streams of data in parallel in your streaming application, you can create multiple input DStreams (discussed further in the Performance Tuning section). This will create multiple receivers which will simultaneously receive multiple data streams. But note that a Spark worker/executor is a long-running task, hence it occupies one of the cores allocated to the Spark Streaming application. Therefore, it is important to remember that a Spark Streaming application needs to be allocated enough cores (or threads, if running locally) to process the received data, as well as to run the receiver(s).</li>
+    </ul>
+  </li>
+  <li>When running a Spark Streaming program locally, <strong>do not</strong> use “local” or “local[1]” as the master URL. Either of these means that only one thread will be used for running tasks locally. If you are using an input DStream based on a receiver (e.g. sockets, Kafka, Flume, etc.), then the single thread will be used to run the receiver, leaving no thread for processing the received data. Hence, when running locally, always use “local[n]” as the master URL, where n &gt; number of receivers to run (see Spark Properties for information on how to set the master).
+    <ul>
+      <li>Extending the logic to running on a cluster, the number of cores allocated to the Spark Streaming application must be more than the number of receivers. Otherwise the system will receive data, but not be able to process it.</li>
+    </ul>
+  </li>
+  <li>The spark-submit script provides the most straightforward way to submit a compiled Spark application to the cluster. For standalone clusters, Spark currently supports two deploy modes. In <strong>client</strong> mode, the driver is launched in the same process as the client that submits the application. In <strong>cluster</strong> mode, however, the driver is launched from one of the Worker processes inside the cluster, and the client process exits as soon as it fulfills its responsibility of submitting the application without waiting for the application to finish.</li>
+  <li>Spark has three officially supported cluster managers:
+    <ul>
+      <li>Standalone mode</li>
+      <li>Hadoop YARN</li>
+      <li>Apache Mesos</li>
+    </ul>
+  </li>
+  <li>Spark Streaming + Kafka Integration two Approaches:
+    <ol>
+      <li>Receiver Based Approach(old)</li>
+      <li>Direct Approach(No receivers)
+        <ul>
+          <li>Each Kafka Partition mapped the RDD partition.</li>
+          <li><a href="https://spark.apache.org/docs/2.2.0/streaming-kafka-0-8-integration.html">https://spark.apache.org/docs/2.2.0/streaming-kafka-0-8-integration.html</a></li>
+        </ul>
+      </li>
+    </ol>
+  </li>
+  <li>How to use Spark-UI
+    <ul>
+      <li><a href="https://docs.google.com/presentation/d/134IbLANG6OyJQh-A5e74aLRHjOpqgdFzzvUZvh57EnU/edit#slide=id.g6f0b1b8094_0_44">https://docs.google.com/presentation/d/134IbLANG6OyJQh-A5e74aLRHjOpqgdFzzvUZvh57EnU/edit#slide=id.g6f0b1b8094_0_44</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="kubernetes">Kubernetes</h3>
+<ul>
+  <li>aim to provide a platform for automating deployment, scaling and operations across clusters of hosts.</li>
+</ul>
+
+<h3 id="spark-submit-command">Spark-submit command</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./bin/spark-submit \
+  --master &lt;master-url&gt; \
+  --deploy-mode &lt;deploy-mode&gt; \
+  --conf &lt;key&lt;=&lt;value&gt; \
+  --driver-memory &lt;value&gt;g \
+  --executor-memory &lt;value&gt;g \
+  --executor-cores &lt;number of cores&gt;  \
+  --jars  &lt;comma separated dependencies&gt;
+  --class &lt;main-class&gt; \
+  &lt;application-jar&gt; \
+  [application-arguments]
+</code></pre></div></div>
+
+<h3 id="top-mistakes-to-avoid-in-streaming-applications-data-summit-2023">Top Mistakes to Avoid in Streaming Applications (data summit 2023)</h3>
+<p><a href="https://www.youtube.com/watch?v=khhzniCyfP4">https://www.youtube.com/watch?v=khhzniCyfP4</a></p>
+<ol>
+  <li>minPartitions config (virtual kafka partition will be created)</li>
+  <li>Data Ingestion - Rate limitation</li>
+  <li><code class="language-plaintext highlighter-rouge">maxOffsetsPerTrigger</code></li>
+</ol>
+
+<h3 id="bash">Bash</h3>
+<p><code class="language-plaintext highlighter-rouge">-z string</code>: True if the string is null (an empty string)</p>
+
+<h3 id="ssh-config">ssh-config</h3>
+<p>Empty lines and lines starting with the hash sign (#) are comments. SSH ignores these lines and uses the first obtained values when searching through the config file. Place host-specific information near the beginning of the file and general default information near the end.</p>
+
+
+        </article>
+    </div>
+</div>
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+  </body>
+</html>
