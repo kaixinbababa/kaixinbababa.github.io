@@ -1,10 +1,10 @@
 - name: World Drifter
   link: /
-- name: Author
-  link: /staff.html
-- name: Left
+- name: Tech
   link: /code.html
-- name: Right
+- name: Posts
   link: /blog.html
 - name: My College
   link: /college.html
+- name: Author
+  link: /staff.html

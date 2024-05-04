@@ -3,15 +3,24 @@ layout: default
 title: Blog
 ---
 <div class="row">
-    <div class="col-lg-1"></div>
-    <div class="col-lg-10">
-        <ul class="list-group">
+    <div class="col-lg-4">
+        <div class="list-group">
             {% for post in site.categories.life %}
-                    <li class="list-group-item">
-                        <h5><a href="{{ post.url }}">{{ post.title }} - {{ post.date | date: "%b %d, %y"}}</a></h5>
-                    </li>
+                <a href="#" class="list-group-item list-group-item-action">
+                    {{ post.title }} - {{ post.date | date: "%b %d, %y"}}
+                </a>
             {% endfor %}
-        </ul>
+        </div>
+    </div>
+    <div class="col-lg-8">
+        
     </div>
     <div class="col-lg-1"></div>
 </div>
+<script>
+$(document).ready(function(){
+  $("a.list-group-item").click(function(){
+    $(this).addClass("active").siblings().removeClass("active");
+});
+});
+</script>
