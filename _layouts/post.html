@@ -3,14 +3,52 @@ layout: default
 ---
 
 <div class="row g-5">
-    <div class="col-md-2">
+    <div class="col-md-4">
+        {% if page.category == "life" %}
+        <div class="list-group">
+            {% for post in site.categories.life %}
+                {% if post.title == page.title%}
+                    <a href="{{ post.url }}" class="list-group-item list-group-item-action active">
+                        {{ post.title }} - {{ post.date | date: "%b %d, %y"}}
+                    </a>
+                <!-- not active items -->
+                {% else %}
+                    <a href="{{ post.url }}" class="list-group-item list-group-item-action">
+                        {{ post.title }} - {{ post.date | date: "%b %d, %y"}}
+                    </a>
+                {% endif %}
+            {% endfor %}
+        </div>
+        {% elsif page.category == "college" %}
+        <div class="list-group">
+            {% for post in site.categories.college %}
+                {% if post.title == page.title%}
+                    <a href="{{ post.url }}" class="list-group-item list-group-item-action active">
+                        {{ post.title }} - {{ post.date | date: "%b %d, %y"}}
+                    </a>
+                <!-- not active items -->
+                {% else %}
+                    <a href="{{ post.url }}" class="list-group-item list-group-item-action">
+                        {{ post.title }} - {{ post.date | date: "%b %d, %y"}}
+                    </a>
+                {% endif %}
+            {% endfor %}
+        </div>
+        {% endif %}
     </div>
-    <div class="col-md-8">
+    <div class="col-md-6">
         <article class="blog-post">
             <h2 class="blog-post-title mb-1">{{ page.title }}</h2>
             <p class="blog-post-meta">{{ page.date | date_to_string }} by <a href="#">{{ page.author }}</a></p>
             {{ content }}
         </article>
     </div>
+    <div class="col-md-2">
+    </div>
 </div>
+
+<script>
+    $(document).ready(function(){
+    });
+</script>
 

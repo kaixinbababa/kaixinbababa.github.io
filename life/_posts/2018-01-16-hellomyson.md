@@ -2,6 +2,7 @@
 layout: post
 title: 王某某 
 author: Yan
+category: life
 ---
 
 

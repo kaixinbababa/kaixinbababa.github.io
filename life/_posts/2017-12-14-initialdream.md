@@ -2,6 +2,7 @@
 layout: post
 title: 最初的梦想 
 author: Yan
+category: life
 ---
 12月13 纽约晴朗而寒冷 
 
