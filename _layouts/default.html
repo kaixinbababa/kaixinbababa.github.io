@@ -1,16 +1,45 @@
 <!doctype html>
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>{{ page.title }}</title>
-    <!--used to avoid fake favicon.ico requests-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{% if page.title %}{{ page.title }} — {% endif %}{{ site.title }}</title>
     <link rel="icon" href="data:;base64,=">
     <link rel="stylesheet" href="/assets/css/styles.css">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
   </head>
   <body>
     {% include navigation.html %}
-    {{ content }}
+
+    {% unless page.no_hero %}
+    <section class="py-5 text-center container">
+      <div class="row py-lg-5">
+        <div class="col-lg-6 col-md-8 mx-auto">
+          <h1 class="fw-light">{{ site.title }}</h1>
+          <p class="lead text-muted">{{ site.description }}</p>
+          <p>
+            <a href="/blog.html" class="btn btn-primary my-2">Read Posts</a>
+            <a href="/code.html" class="btn btn-secondary my-2">Tech Notes</a>
+          </p>
+        </div>
+      </div>
+    </section>
+    {% endunless %}
+
+    <div class="album py-5 bg-light">
+      <div class="container">
+        {{ content }}
+      </div>
+    </div>
+
+    <footer class="text-muted py-5 border-top">
+      <div class="container">
+        <p class="float-end mb-1">
+          <a href="#">Back to top</a>
+        </p>
+        <p class="mb-1">&copy; {{ site.time | date: '%Y' }} Yan Wang — <a href="/">World Drifter</a></p>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   </body>
 </html>

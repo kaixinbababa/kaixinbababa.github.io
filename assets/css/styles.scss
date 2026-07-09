@@ -1,4 +1,60 @@
 ---
 ---
 @import "bootstrap.scss";
-@import "{{ site.theme }}";
+
+/* Album custom styles */
+
+/* Hero section */
+section.py-5 {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+section.py-5 h1 {
+  color: #fff;
+}
+
+section.py-5 .lead {
+  color: rgba(255,255,255,.85) !important;
+}
+
+/* Card hover effect */
+.card.shadow-sm {
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.card.shadow-sm:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) !important;
+}
+
+/* Card image fix */
+.card-img-top {
+  border-top-left-radius: calc(.25rem - 1px);
+  border-top-right-radius: calc(.25rem - 1px);
+}
+
+/* Stretched-link inside cards */
+.card-title a.stretched-link {
+  color: inherit;
+}
+
+.card-title a.stretched-link:hover {
+  color: #667eea;
+}
+
+/* Navbar active */
+.navbar .nav-link.active {
+  font-weight: 600;
+}
+
+/* Back to top smooth */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom padding on smaller screens */
+@media (max-width: 768px) {
+  section.py-5 {
+    padding: 2rem 0 !important;
+  }
+}

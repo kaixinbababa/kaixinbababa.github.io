@@ -1,14 +1,21 @@
 ---
 layout: default
-title: Staff
+title: Author
 ---
-<div class="panel panel-default">
-  <div class="panel-heading">Author</div>
-  {% for author in site.authors %}
-  <div class="panel-body">
-    <p>{{ author.name }}</p>
-    <p>{{ author.position }}</p>
-    <p>{{ author.content }}</p>
+
+<div class="row">
+  <div class="col-lg-8 mx-auto">
+    {% for author in site.authors %}
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h3 class="card-title">{{ author.name }}</h3>
+        <p class="card-text text-muted">{{ author.position }}</p>
+        <hr>
+        <div class="card-text">
+          {{ author.content | markdownify }}
+        </div>
+      </div>
+    </div>
+    {% endfor %}
   </div>
-  {% endfor %}
 </div>

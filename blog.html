@@ -2,18 +2,22 @@
 layout: default
 title: Blog
 ---
-<div class="row">
-    <div class="col-lg-4">
-        <div class="list-group">
-            {% for post in site.categories.life %}
-                <a href="{{ post.url }}" class="list-group-item list-group-item-action">
-                    {{ post.title }} - {{ post.date | date: "%b %d, %y"}}
-                </a>
-            {% endfor %}
-        </div>
-    </div>
-    <div class="col-lg-8">
 
+<h2 class="pb-2 border-bottom">Life Posts</h2>
+<div class="row g-4 py-3">
+  {% for post in site.categories.life %}
+  <div class="col-md-6">
+    <div class="card shadow-sm h-100">
+      <div class="card-body">
+        <h5 class="card-title">
+          <a href="{{ post.url }}" class="text-decoration-none stretched-link">{{ post.title }}</a>
+        </h5>
+        <p class="card-text text-muted small">{{ post.date | date: "%B %d, %Y" }}</p>
+        {% if post.excerpt %}
+        <p class="card-text">{{ post.excerpt | strip_html | truncatewords: 30 }}</p>
+        {% endif %}
+      </div>
     </div>
-    <div class="col-lg-1"></div>
+  </div>
+  {% endfor %}
 </div>
