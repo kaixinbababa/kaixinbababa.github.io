@@ -52,6 +52,12 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Make all images responsive */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
 /* Custom padding on smaller screens */
 @media (max-width: 768px) {
   section.py-5 {
