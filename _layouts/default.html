@@ -22,11 +22,15 @@
     </section>
     {% endunless %}
 
+    {% if page.timeline_layout %}
+      {{ content }}
+    {% else %}
     <div class="album py-5 bg-light">
       <div class="container">
         {{ content }}
       </div>
     </div>
+    {% endif %}
 
     <footer class="text-muted py-5 border-top">
       <div class="container">

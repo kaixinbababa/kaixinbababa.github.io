@@ -1,23 +1,19 @@
 ---
 layout: default
-title: Blog
+title: 人生随笔
+no_hero: true
+timeline_layout: true
 ---
 
-<h2 class="pb-2 border-bottom">Life Posts</h2>
-<div class="row g-4 py-3">
-  {% for post in site.categories.life %}
-  <div class="col-md-6">
-    <div class="card shadow-sm h-100">
-      <div class="card-body">
-        <h5 class="card-title">
-          <a href="{{ post.url }}" class="text-decoration-none stretched-link">{{ post.title }}</a>
-        </h5>
-        <p class="card-text text-muted small">{{ post.date | date: "%B %d, %Y" }}</p>
-        {% if post.excerpt %}
-        <p class="card-text">{{ post.excerpt | strip_html | truncatewords: 30 }}</p>
-        {% endif %}
-      </div>
-    </div>
+<div class="timeline-page-header">
+  <div class="container">
+    <h1 class="fw-light">📝 人生随笔</h1>
+    <p class="lead text-muted">Life essays — a personal chronicle</p>
   </div>
-  {% endfor %}
+</div>
+
+<div class="timeline-wrapper">
+  <div class="container">
+    {% include timeline.html posts=site.categories.life %}
+  </div>
 </div>

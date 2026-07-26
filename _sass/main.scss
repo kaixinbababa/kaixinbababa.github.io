@@ -1,3 +1,119 @@
-/* Override Bootstrap variables here if needed */
+/* Timeline — Facebook-style */
+.timeline-page-header {
+  padding-top: 3rem;
+  padding-bottom: 1.5rem;
+  text-align: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+}
+.timeline-page-header h1 {
+  color: #fff;
+}
+.timeline-page-header .lead {
+  color: rgba(255,255,255,.75) !important;
+}
 
-/* Remove the cayman theme styles */
+.timeline-wrapper {
+  background: #f0f2f5;
+  padding: 2rem 0;
+}
+
+.timeline {
+  position: relative;
+  padding-left: 3rem;
+}
+
+/* Vertical line */
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 0.85rem;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(to bottom, #667eea, #764ba2, #f093fb);
+  border-radius: 2px;
+}
+
+/* Year badge */
+.timeline-year {
+  position: relative;
+  margin: 2rem 0 1.5rem;
+}
+.timeline-year:first-child {
+  margin-top: 0;
+}
+.timeline-year-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 0.35rem 1.25rem;
+  border-radius: 20px;
+  position: relative;
+  z-index: 1;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.4);
+}
+
+/* Timeline item */
+.timeline-item {
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+.timeline-item:last-child {
+  margin-bottom: 0;
+}
+
+/* Dot */
+.timeline-dot {
+  position: absolute;
+  left: -2.15rem;
+  top: 1.25rem;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #fff;
+  border: 3px solid #667eea;
+  z-index: 1;
+  box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.15);
+}
+
+/* Content card */
+.timeline-content .card {
+  border: none;
+  border-radius: 10px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.timeline-content .card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0.5rem 1.5rem rgba(0,0,0,.12) !important;
+}
+.timeline-content .card-body {
+  position: relative;
+}
+
+/* Date */
+.timeline-date {
+  font-size: 0.8rem;
+  color: #667eea;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.25rem;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .timeline {
+    padding-left: 2.5rem;
+  }
+  .timeline::before {
+    left: 0.5rem;
+  }
+  .timeline-dot {
+    left: -2rem;
+    width: 12px;
+    height: 12px;
+  }
+}
