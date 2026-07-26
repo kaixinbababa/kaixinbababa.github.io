@@ -1,52 +1,104 @@
 <!doctype html>
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Kafka</title>
-    <!--used to avoid fake favicon.ico requests-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Kafka — Yan's Life</title>
     <link rel="icon" href="data:;base64,=">
     <link rel="stylesheet" href="/assets/css/styles.css">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-    <div class="navbar-nav" style="font-size: large">
-    
-    <a href="/" class="nav-link " >
-      World Drifter
-    </a>
-    
-    <a href="/code.html" class="nav-link " >
-      Tech
-    </a>
-    
-    <a href="/blog.html" class="nav-link " >
-      Posts
-    </a>
-    
-    <a href="/college.html" class="nav-link " >
-      My College
-    </a>
-    
-    <a href="/staff.html" class="nav-link " >
-      Author
-    </a>
-    
+  <div class="container">
+    <a class="navbar-brand" href="/">🌍 World Drifter</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <div class="navbar-nav">
+      
+        <a href="/" class="nav-link ">
+          World Drifter
+        </a>
+      
+        <a href="/code.html" class="nav-link ">
+          Tech
+        </a>
+      
+        <a href="/blog.html" class="nav-link ">
+          Posts
+        </a>
+      
+        <a href="/college.html" class="nav-link ">
+          My College
+        </a>
+      
+        <a href="/staff.html" class="nav-link ">
+          Author
+        </a>
+      
+      </div>
     </div>
   </div>
 </nav>
 
-    <div class="row g-5">
-    <div class="col-md-4">
-        
+    
+    <section class="py-5 text-center container">
+      <div class="row py-lg-5">
+        <div class="col-lg-6 col-md-8 mx-auto">
+          <h1 class="fw-light">Yan's Life</h1>
+          <p class="lead text-muted">Personal life snapshots of Yan Wang</p>
+
+        </div>
+      </div>
+    </section>
+    
+
+    <div class="album py-5 bg-light">
+      <div class="container">
+        <div class="row">
+  <!-- Sidebar -->
+  <div class="col-md-3">
+    <div class="position-sticky" style="top: 2rem;">
+      <div class="card shadow-sm mb-3">
+        <div class="card-header fw-bold">
+          
+            Tech Notes
+          
+        </div>
+        <div class="list-group list-group-flush">
+          
+          
+            <a href="/work/2023/05/11/MyNotes.html" class="list-group-item list-group-item-action py-2 ">
+              <small>My Notes</small>
+            </a>
+          
+            <a href="/work/2019/10/18/kafka.html" class="list-group-item list-group-item-action py-2 active">
+              <small>Kafka</small>
+            </a>
+          
+            <a href="/work/2016/09/30/FlinkKafkaStream.html" class="list-group-item list-group-item-action py-2 ">
+              <small>Flink vs Kafka Stream</small>
+            </a>
+          
+        </div>
+      </div>
     </div>
-    <div class="col-md-6">
-        <article class="blog-post">
-            <h2 class="blog-post-title mb-1">Kafka</h2>
-            <p class="blog-post-meta">18 Oct 2019 by <a href="#">Yan</a></p>
-            <h4 id="kafka-concepts---topic-and-partition">Kafka concepts - Topic and Partition</h4>
+  </div>
+
+  <!-- Main content -->
+  <div class="col-md-9">
+    <article class="card shadow-sm">
+      <div class="card-body">
+        <h1 class="card-title mb-1">Kafka</h1>
+        <p class="card-subtitle text-muted mb-3">
+          October 18, 2019
+           by Yan
+        </p>
+        <hr>
+        <div class="card-text">
+          <h4 id="kafka-concepts---topic-and-partition">Kafka concepts - Topic and Partition</h4>
 <ul>
   <li>Offset only has meaning for a specific partition</li>
   <li>order is guaranteed within a partition, not accross partitions</li>
@@ -212,17 +264,23 @@
 </ul>
 
 
-        </article>
-    </div>
-    <div class="col-md-2">
-    </div>
+        </div>
+      </div>
+    </article>
+  </div>
 </div>
+      </div>
+    </div>
 
-<script>
-    $(document).ready(function(){
-    });
-</script>
+    <footer class="text-muted py-5 border-top">
+      <div class="container">
+        <p class="float-end mb-1">
+          <a href="#">Back to top</a>
+        </p>
+        <p class="mb-1">&copy; 2026 Yan Wang — <a href="/">World Drifter</a></p>
+      </div>
+    </footer>
 
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   </body>
 </html>

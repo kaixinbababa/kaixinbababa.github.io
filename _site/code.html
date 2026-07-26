@@ -1,89 +1,120 @@
 <!doctype html>
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>work</title>
-    <!--used to avoid fake favicon.ico requests-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Tech Notes — Yan's Life</title>
     <link rel="icon" href="data:;base64,=">
     <link rel="stylesheet" href="/assets/css/styles.css">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-    <div class="navbar-nav" style="font-size: large">
-    
-    <a href="/" class="nav-link " >
-      World Drifter
-    </a>
-    
-    <a href="/code.html" class="nav-link  active " >
-      Tech
-    </a>
-    
-    <a href="/blog.html" class="nav-link " >
-      Posts
-    </a>
-    
-    <a href="/college.html" class="nav-link " >
-      My College
-    </a>
-    
-    <a href="/staff.html" class="nav-link " >
-      Author
-    </a>
-    
+  <div class="container">
+    <a class="navbar-brand" href="/">🌍 World Drifter</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <div class="navbar-nav">
+      
+        <a href="/" class="nav-link ">
+          World Drifter
+        </a>
+      
+        <a href="/code.html" class="nav-link  active ">
+          Tech
+        </a>
+      
+        <a href="/blog.html" class="nav-link ">
+          Posts
+        </a>
+      
+        <a href="/college.html" class="nav-link ">
+          My College
+        </a>
+      
+        <a href="/staff.html" class="nav-link ">
+          Author
+        </a>
+      
+      </div>
     </div>
   </div>
 </nav>
 
-    <div class="row">
-    <div class="col-lg-1"></div>
-    <div class="col-lg-10">
-        <ul class="list-group">
-            
-                    <li class="list-group-item">
-                        <h5><a href="/work/2023/05/11/MyNotes.html">My Notes</a></h5>
-                        <p class="meta">Date: 2023-05-11 00:00:00 -0700 work</p>
-                        <h3 id="object-storage-vs-file-storage">Object Storage vs File Storage</h3>
-<ul>
-  <li>flat structure vs hierarchy structure</li>
-  <li>object storage used for large amount of data, archived data, cheap to store.</li>
-  <li>distributed storage, replicated data redundancy. High availability.</li>
-</ul>
+    
+    <section class="py-5 text-center container">
+      <div class="row py-lg-5">
+        <div class="col-lg-6 col-md-8 mx-auto">
+          <h1 class="fw-light">Yan's Life</h1>
+          <p class="lead text-muted">Personal life snapshots of Yan Wang</p>
 
+        </div>
+      </div>
+    </section>
+    
 
-                    </li>
-            
-                    <li class="list-group-item">
-                        <h5><a href="/work/2019/10/18/kafka.html">Kafka</a></h5>
-                        <p class="meta">Date: 2019-10-18 00:00:00 -0700 work</p>
-                        <h4 id="kafka-concepts---topic-and-partition">Kafka concepts - Topic and Partition</h4>
-<ul>
-  <li>Offset only has meaning for a specific partition</li>
-  <li>order is guaranteed within a partition, not accross partitions</li>
-  <li>Data is kept only for a limited time(usually two weeks)</li>
-  <li>Once data is written to a partition, it won’t change(immutatable)</li>
-  <li>Data is assigned to a random partition unless a key is provided</li>
-  <li>You can have as many partitions per topic as you want</li>
-</ul>
-
-
-                    </li>
-            
-                    <li class="list-group-item">
-                        <h5><a href="/work/2016/09/30/FlinkKafkaStream.html">Flink vs Kafka Stream</a></h5>
-                        <p class="meta">Date: 2016-09-30 00:00:00 -0700 work</p>
-                        <p>This blog post is written jointly by Stephan Ewen, CTO of data Artisans, and Neha Narkhede, CTO of Confluent. Stephan Ewen is PMC member of Apache Flink and co-founder and CTO of data Artisans. Before founding data Artisans, Stephan was leading the development that led to the creation of Apache Flink. Stephan holds a PhD. in Computer Science from TU Berlin. You can also find this post on the data Artisans blog.</p>
-
-
-                    </li>
-            
-        </ul>
+    <div class="album py-5 bg-light">
+      <div class="container">
+        <h2 class="pb-2 border-bottom">Tech Notes</h2>
+<div class="row g-4 py-3">
+  
+  <div class="col-md-6">
+    <div class="card shadow-sm h-100">
+      <div class="card-body">
+        <h5 class="card-title">
+          <a href="/work/2023/05/11/MyNotes.html" class="text-decoration-none stretched-link">My Notes</a>
+        </h5>
+        <p class="card-text text-muted small">May 11, 2023</p>
+        
+        <p class="card-text">Object Storage vs File Storage flat structure vs hierarchy structure object storage used for large amount of data, archived data, cheap to store. distributed storage, replicated data redundancy. High availability....</p>
+        
+      </div>
     </div>
-    <div class="col-lg-1"></div>
+  </div>
+  
+  <div class="col-md-6">
+    <div class="card shadow-sm h-100">
+      <div class="card-body">
+        <h5 class="card-title">
+          <a href="/work/2019/10/18/kafka.html" class="text-decoration-none stretched-link">Kafka</a>
+        </h5>
+        <p class="card-text text-muted small">October 18, 2019</p>
+        
+        <p class="card-text">Kafka concepts - Topic and Partition Offset only has meaning for a specific partition order is guaranteed within a partition, not accross partitions Data is kept only for a limited...</p>
+        
+      </div>
+    </div>
+  </div>
+  
+  <div class="col-md-6">
+    <div class="card shadow-sm h-100">
+      <div class="card-body">
+        <h5 class="card-title">
+          <a href="/work/2016/09/30/FlinkKafkaStream.html" class="text-decoration-none stretched-link">Flink vs Kafka Stream</a>
+        </h5>
+        <p class="card-text text-muted small">September 30, 2016</p>
+        
+        <p class="card-text">This blog post is written jointly by Stephan Ewen, CTO of data Artisans, and Neha Narkhede, CTO of Confluent. Stephan Ewen is PMC member of Apache Flink and co-founder and...</p>
+        
+      </div>
+    </div>
+  </div>
+  
 </div>
+      </div>
+    </div>
 
+    <footer class="text-muted py-5 border-top">
+      <div class="container">
+        <p class="float-end mb-1">
+          <a href="#">Back to top</a>
+        </p>
+        <p class="mb-1">&copy; 2026 Yan Wang — <a href="/">World Drifter</a></p>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   </body>
 </html>
