@@ -33,6 +33,7 @@ layout: default
             {% endif %}
             <a href="{{ post.url }}" class="sidebar-timeline-item {% if post.title == page.title %}active{% endif %}">
               <span class="sidebar-timeline-dot"></span>
+              <span class="sidebar-timeline-date">{{ post.date | date: "%m/%d" }}</span>
               <span class="sidebar-timeline-text">{{ post.title }}</span>
             </a>
           {% endfor %}
