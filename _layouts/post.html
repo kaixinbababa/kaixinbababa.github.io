@@ -9,10 +9,7 @@ layout: default
       {% assign cat = page.category | default: page.categories.first %}
       {% if cat == "life" %}
         {% assign posts = site.categories.life %}
-        {% assign sidebar_title = "📝 人生随笔" %}
-      {% elsif cat == "college" %}
-        {% assign posts = site.categories.college %}
-        {% assign sidebar_title = "🎓 我的大学" %}
+        {% assign sidebar_title = "📝 我的人生" %}
       {% elsif cat == "work" %}
         {% assign posts = site.categories.work %}
         {% assign sidebar_title = "💻 工作相关" %}
