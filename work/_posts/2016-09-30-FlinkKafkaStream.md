@@ -1,6 +1,7 @@
 ---
 title: Flink vs Kafka Stream
 layout: post
+category: work
 author: Dummy
 ---
 This blog post is written jointly by Stephan Ewen, CTO of data Artisans, and Neha Narkhede, CTO of Confluent. Stephan Ewen is PMC member of Apache Flink and co-founder and CTO of data Artisans. Before founding data Artisans, Stephan was leading the development that led to the creation of Apache Flink. Stephan holds a PhD. in Computer Science from TU Berlin. You can also find this post on the data Artisans blog.

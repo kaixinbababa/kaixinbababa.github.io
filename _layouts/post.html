@@ -6,15 +6,16 @@ layout: default
   <!-- Sidebar -->
   <div class="col-md-3">
     <div class="position-sticky" style="top: 2rem;">
-      {% if page.category == "life" %}
+      {% assign cat = page.category | default: page.categories.first %}
+      {% if cat == "life" %}
         {% assign posts = site.categories.life %}
         {% assign sidebar_title = "📝 人生随笔" %}
-      {% elsif page.category == "college" %}
+      {% elsif cat == "college" %}
         {% assign posts = site.categories.college %}
         {% assign sidebar_title = "🎓 我的大学" %}
-      {% elsif page.category == "work" %}
+      {% elsif cat == "work" %}
         {% assign posts = site.categories.work %}
-        {% assign sidebar_title = "💻 Tech Notes" %}
+        {% assign sidebar_title = "💻 工作相关" %}
       {% else %}
         {% assign posts = site.posts %}
         {% assign sidebar_title = "Posts" %}
